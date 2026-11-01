@@ -12,12 +12,11 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
 const keyword = ref('');
-// const emit = defineEmits(['emitSearch','emitAllBooks'])
-// 更簡潔的寫法
-// 泛型<>裡面設定配置{(e:'事件名稱',傳遞的值:型別): void}
+
 const emit = defineEmits<{
   (e:'emitSearch',keyword: string): void
   (e:'emitAllBooks'): void
+  (e:'openAddModal'):void
 }>()
 
 function handleEmit(){
@@ -26,6 +25,8 @@ function handleEmit(){
 function handleEmitAllBooks(){
   emit('emitAllBooks')
 }
+
+
 
 </script>
 

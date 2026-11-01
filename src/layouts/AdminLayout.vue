@@ -1,6 +1,6 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <Header />
+    <AdminHeader />
 
     <a-layout>
       <Sidebar />
@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import Header from '@/components/Header.vue'
-import Sidebar from '@/components/Sidebar.vue'
+import AdminHeader from '@/components/admin/AdminHeader.vue';
+import Sidebar from '@/components/admin/Sidebar.vue'
 </script>
 <style scope>
 
