@@ -11,14 +11,6 @@ export const memberApi = {
         });
     },
 
-    getByEmail(email: string){
-        return api.get("/member",{
-            params: {
-                email: email
-            }
-        });
-    },
-
     getAll(){
         return api.get<Member[]>("/admin/member");
     }

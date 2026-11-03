@@ -1,16 +1,22 @@
 <template>
-  <BorrowSearchBar/>
+  <BorrowSearchBar @emitAllBorrows="getAllBorrows"/>
   <a-table :dataSource="borrows" :columns="columns">
 
   </a-table>
-</template>
+</template> 
 
 <script setup lang='ts'>
 import BorrowSearchBar from '@/components/borrow/BorrowSearchBar.vue';
 import type { Borrow } from '@/model/Borrow';
 import { ref } from 'vue';
+import { borrowApi } from '@/api/borrowApi';
 
 const borrows = ref<Borrow[]>([]);
+
+async function getAllBorrows(){
+  const response = await borrowApi.findAll();
+  borrows.value = response.data;
+}
 
 const columns = [{
   title: 'id',
