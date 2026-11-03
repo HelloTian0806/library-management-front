@@ -4,7 +4,7 @@ import HomeView from "@/views/user/HomeView.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
 import BookManagementView from "@/views/admin/BookManagementView.vue";
-import DashBoardView from "@/views/admin/DashBoardView.vue";
+import DashBoardView from "@/views/admin/DashboardView.vue";
 import MemberManagementView from "@/views/admin/MemberManagementView.vue";
 import BorrowManagementView from "@/views/admin/BorrowManagementView.vue";
 import BookSearchView from "@/views/user/BookSearchView.vue";

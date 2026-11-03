@@ -29,7 +29,7 @@
 
 
 <script setup lang='ts'>
-import type { Dashboard } from '@/model/DashBoard';
+import type { Dashboard } from '@/model/Dashboard';
 import { onMounted, ref } from 'vue';
 import { dashboardApi } from '@/api/dashboardApi';
 
