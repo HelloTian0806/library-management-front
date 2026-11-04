@@ -14,5 +14,13 @@ export const borrowApi = {
     
     findAll(){
         return api.get('/admin/borrows');
+    },
+
+    findByUserName(name: string){
+        return api.get('admin/borrows',{
+            params:{
+                name: name
+            }
+        });
     }
 };

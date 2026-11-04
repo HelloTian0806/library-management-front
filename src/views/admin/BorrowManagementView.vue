@@ -1,5 +1,5 @@
 <template>
-  <BorrowSearchBar @emitAllBorrows="getAllBorrows"/>
+  <BorrowSearchBar @emitAllBorrows="getAllBorrows" @emitGetByUserName="getByUserName"/>
   <a-table :dataSource="borrows" :columns="columns">
 
   </a-table>
@@ -18,6 +18,11 @@ async function getAllBorrows(){
   borrows.value = response.data;
 }
 
+async function getByUserName(keyword: string){
+  const response = await borrowApi.findByUserName(keyword);
+  borrows.value = response.data;
+}
+
 const columns = [{
   title: 'id',
   dataIndex: 'id',
@@ -27,6 +32,11 @@ const columns = [{
   title: '會員id',
   dataIndex: 'memberId',
   key: 'memberId'
+},
+{
+  title: '會員名稱',
+  dataIndex: 'memberName',
+  key: 'memberName'
 },
 {
   title: '書名',
