@@ -46,6 +46,12 @@
 </template>
 
 <script setup lang='ts'>
+/**
+ * 集中呈現登入與註冊表單，以 ref 控制模式及開關，以 reactive 保存各欄位。
+ * v-model:value 連接 Ant Design Vue 輸入元件；Form 的 finish 事件在表單驗證流程完成後呼叫。
+ * 目前登入表單使用 rules，註冊表單卻寫成 rule，不能假設 registerRules 已正確套用。
+ * 前端驗證提供操作提示，後端 DTO 與帳密驗證仍會獨立執行。
+ */
 import { ref, reactive } from 'vue';
 import { message } from 'ant-design-vue'
 import type { LoginRequest, RegisterRequest } from '@/model/Auth';
@@ -53,12 +59,18 @@ import { authApi } from '@/api/authApi';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
 import type { User } from '@/model/User';
+/**
+ * defineModel 對應父層 v-model:open，設定 open.value 會通知父層更新開關。
+ */
 const open = defineModel<boolean>('open')
 const mode = ref<'login' | 'register'>('login')
 const loginRules = {
     email: [{ required: true, message: '請輸入帳號' }],
     password: [{ required: true, message: '請輸入密碼' }]
 }
+/**
+ * 以 reactive 讓表單欄位變更可被追蹤；這是物件代理，在程式中不使用 .value。
+ */
 const loginForm = reactive<LoginRequest>({
     email: '',
     password: ''
@@ -77,13 +89,22 @@ const registerForm = reactive<RegisterRequest>({
     password: '',
     phone:''
 });
+/**
+ * 只關閉對話框，不重設模式、表單欄位或登入狀態。
+ */
 function handleCancel() {
     open.value = false
 }
+/**
+ * 此回呼目前沒有綁到模板；實際 finish 事件分別使用 handleLogin 與 handleRegister。
+ */
 const onFinish = (values: any) => {
     console.log('Success:', values);
 };
 
+/**
+ * 接收表單驗證失敗資訊並記錄；不是 Axios 請求失敗的處理函式。
+ */
 const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
 };
@@ -93,6 +114,10 @@ const loading = ref(false);
 const authStore = useAuthStore();
 const router = useRouter();
 
+/**
+ * 設定 loading 後送出登入請求；成功則更新 Store、關閉視窗，管理者另導向 /admin。
+ * 失敗顯示一般提示，finally 無論成功或失敗都結束 loading；此函式未清空輸入欄位。
+ */
 async function handleLogin() {
     loading.value = true;
     try {
@@ -111,6 +136,10 @@ async function handleLogin() {
 
 }
 // 註冊
+/**
+ * 送出註冊請求並提示結果，成功後導向首頁。
+ * 目前不更新 Store、對話框模式或開關；註冊成功也不等於已登入。
+ */
 async function handleRegister() {
     try{
         await authApi.register(registerForm);

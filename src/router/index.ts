@@ -1,3 +1,10 @@
+/**
+ * 建立巢狀路由：Layout 放共用頁首與框架，子路由在 Layout 的 RouterView 顯示。
+ * createWebHistory 使用一般 URL 路徑；部署時的重新整理能否成功仍需伺服器提供相應入口。
+ * meta 是自訂標記，需由 beforeEach 主動讀取，不會自動產生權限保護。
+ * 前端導覽守衛改善畫面流程，後端 API 仍必須自行檢查身分與角色。
+ * 目前儀表板 import 使用 DashboardView.vue，實際檔名是 DashBoardView.vue，大小寫不一致。
+ */
 import { createRouter, createWebHistory } from "vue-router";
 
 import HomeView from "@/views/user/HomeView.vue";
@@ -44,6 +51,12 @@ const router = createRouter({
   ]
 });
 
+/**
+ * 每次導覽先等待登入檢查，再依目標路由 meta 判斷是否導回首頁。
+ * 目前兩個判斷都讀 requiresAuth，沒有讀 requiresAdmin；第二個判斷要求角色為 ADMIN。
+ * checkLogin 的失敗分支目前會保留舊 user，所以守衛結果仍可能依賴過期前端狀態。
+ * @param to 即將進入的目標路由；回傳 / 代表重新導向，沒有回傳值時繼續導覽
+ */
 router.beforeEach(async (to) => {
 
   const authStore = useAuthStore();

@@ -3,16 +3,16 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
-    // Extra safety for array and object lookups, but may have false positives.
+    // 索引存取可能得到 undefined，讓陣列與物件查值的型別檢查更嚴格。
     "noUncheckedIndexedAccess": true,
 
-    // Path mapping for cleaner imports.
+    // 提供 TypeScript 的 @ 路徑對應；執行時的模組解析另由 Vite alias 處理。
     "paths": {
       "@/*": ["./src/*"]
     },
 
-    // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
-    // Specified here to keep it out of the root directory.
+    // vue-tsc --build 會產生增量型別檢查快取。
+    // 將快取放到 node_modules 內，避免寫在專案根目錄。
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
   }
 }

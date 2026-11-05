@@ -20,6 +20,12 @@
 </template>
 
 <script setup lang='ts'>
+/**
+ * 會員端頁首，依 Pinia user 切換登入按鈕、歡迎文字與個人借閱選單。
+ * selectedKeys 保存選單狀態，與目前路由不是自動同步的同一份資料。
+ * AuthModal 的 v-model:open 以 prop／更新事件同步開關；隱藏選單不代表後端授權。
+ * 元件 scoped 樣式使用全域 CSS 變數，登入狀態改變時 Vue 會重新呈現相應區塊。
+ */
 import { ref } from 'vue';
 import AuthModal from './AuthModal.vue';
 import { useAuthStore } from '@/stores/authStore.ts';
@@ -30,11 +36,18 @@ const selectedKeys = ref<string[]>(['0']);
 // 打開Modal
 const modalOpen = ref(false);
 const authStore = useAuthStore();
+/**
+ * 開啟登入／註冊視窗，實際 API 與表單狀態由 AuthModal 處理。
+ */
 function openModal() {
     modalOpen.value = true
 }
 
 const router = useRouter();
+/**
+ * 發出登出請求後立即清除 Store、導向首頁並提示成功。
+ * 目前沒有 await 或 catch，後端請求失敗不會阻止這些畫面操作。
+ */
 function handleLogout(){
     authApi.logout();
     authStore.clearUser();

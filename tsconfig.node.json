@@ -1,4 +1,4 @@
-// TSConfig for modules that run in Node.js environment via either transpilation or type-stripping.
+// 提供在 Node.js 環境執行的工具設定檔型別檢查，例如 vite.config.ts。
 {
   "extends": "@tsconfig/node24/tsconfig.json",
   "include": [
@@ -9,19 +9,19 @@
     "eslint.config.*"
   ],
   "compilerOptions": {
-    // Most tools use transpilation instead of Node.js's native type-stripping.
-    // Bundler mode provides a smoother developer experience.
+    // 工具常以轉譯流程處理 TypeScript。
+    // 此處使用 bundler 模組解析，配合建置工具的處理方式。
     "module": "preserve",
     "moduleResolution": "bundler",
 
-    // Include Node.js types and avoid accidentally including other `@types/*` packages.
+    // 明確引入 Node.js 型別，限制自動納入的型別套件。
     "types": ["node"],
 
-    // Disable emitting output during `vue-tsc --build`, which is used for type-checking only.
+    // 只執行型別檢查，不由這個設定輸出 JavaScript。
     "noEmit": true,
 
-    // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
-    // Specified here to keep it out of the root directory.
+    // vue-tsc --build 會產生增量型別檢查快取。
+    // 將快取放在 node_modules 內，避免寫入根目錄。
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   }
 }

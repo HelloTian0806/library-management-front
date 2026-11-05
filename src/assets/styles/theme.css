@@ -1,3 +1,5 @@
+/* 全域設計色彩以 CSS 自訂屬性集中在 :root，元件可透過 var(--名稱) 共用。
+   這些值不會自動套用到所有 Ant Design Vue 元件，只有引用它們的樣式才會生效。 */
 :root {
   /* 品牌 / 操作 */
   --color-primary: #e5e9ee;

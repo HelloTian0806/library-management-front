@@ -36,6 +36,11 @@
   </div>
 </template>
 <script lang="ts" setup>
+/**
+ * 會員端首頁以靜態圖片與卡片呈現輪播及熱門書籍，目前沒有呼叫後端 API。
+ * prevArrow、nextArrow 與 cover 是具名插槽，用來提供元件指定區域的內容。
+ * scoped 樣式由 Vue 編譯器限制作用範圍，:deep 則讓選擇器能匹配子元件內部的輪播元素。
+ */
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
 </script>
 <style scoped>
