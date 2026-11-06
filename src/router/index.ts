@@ -4,13 +4,12 @@ import HomeView from "@/views/user/HomeView.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
 import BookManagementView from "@/views/admin/BookManagementView.vue";
-import DashBoardView from "@/views/admin/DashboardView.vue";
+import DashboardView from "@/views/admin/DashboardView.vue";
 import MemberManagementView from "@/views/admin/MemberManagementView.vue";
 import BorrowManagementView from "@/views/admin/BorrowManagementView.vue";
 import BookSearchView from "@/views/user/BookSearchView.vue";
 import MyBorrowView from "@/views/user/MyBorrowView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
-import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 
 const router = createRouter({
@@ -31,7 +30,7 @@ const router = createRouter({
       path: '/admin',
       component: AdminLayout,
       children: [
-        { path: '', component: DashBoardView },
+        { path: '', component: DashboardView },
         { path: 'books', component: BookManagementView },
         { path: 'members', component: MemberManagementView },
         { path: 'borrows', component: BorrowManagementView }
